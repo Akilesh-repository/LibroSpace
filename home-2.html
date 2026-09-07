@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Shop & Lending Library - Home 2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontWeight: {
+                        semibold: '500',
+                        bold: '600',
+                        extrabold: '800',
+                        black: '900'
+                    },
+                    colors: {
+                        accent: 'var(--accent-color)',
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* === RESET & CORE === */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
+        }
+
+        /* === THEME VARIABLES === */
+        :root {
+            --bg-color: #FAFAFA;
+            --bg-secondary: #F0F9FF;
+            --bg-card: #FFFFFF;
+            --text-main: #0F172A;
+            --text-muted: #64748B;
+            --accent-color: #0EA5E9;
+            --accent-dark: #0284C7;
+            --border-color: #E2E8F0;
+            --nav-bg: rgba(255, 255, 255, 0.9);
+            --drawer-bg: rgba(255, 255, 255, 0.98);
+            --menu-hover-bg: rgba(14, 165, 233, 0.05);
+        }
+
+        /* DARK MODE */
+        body.dark-mode {
+            --bg-color: #0F172A;
+            --bg-secondary: #1E293B;
+            --bg-card: #1E293B;
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --accent-color: #38BDF8;
+            --accent-dark: #0EA5E9;
+            --border-color: #334155;
+            --nav-bg: rgba(15, 23, 42, 0.9);
+            --drawer-bg: rgba(15, 23, 42, 0.98);
+            --menu-hover-bg: rgba(56, 189, 248, 0.1);
+        }
+
+        /* RTL SUPPORT */
+        [dir="rtl"] { text-align: right; }
+        [dir="rtl"] .ml-auto { margin-right: auto; margin-left: 0; }
+        [dir="rtl"] .mr-auto { margin-left: auto; margin-right: 0; }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+
+        /* === REDESIGNED NAVBAR (Edge-to-Edge Minimalist) === */
+        .navbar {
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            height: 85px; transition: all 0.3s ease;
+            display: flex; align-items: center;
+        }
+        .navbar.scrolled {
+            height: 70px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+            border-bottom: 2px solid var(--accent-color);
+        }
+        body.dark-mode .navbar.scrolled {
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-link {
+            position: relative; padding: 8px 4px; margin: 0 14px;
+            color: var(--text-main); text-decoration: none; font-size: 13px;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+            transition: color 0.3s ease; display: inline-flex; align-items: center;
+            justify-content: center; gap: 6px; cursor: pointer;
+        }
+        .nav-link::after {
+            content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px;
+            background: var(--accent-color); transition: width 0.3s ease;
+        }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+        .nav-link:hover, .nav-link.active { color: var(--accent-color); }
+
+        .dropdown { position: relative; display: flex; align-items: center; height: 100%; }
+        .dropdown-menu {
+            position: absolute; top: 60px; left: 0; transform: translateY(15px);
+            opacity: 0; visibility: hidden; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: 100;
+        }
+        .navbar.scrolled .dropdown-menu { top: 50px; }
+        .dropdown-inner {
+            background: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: 8px; min-width: 220px; box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            padding: 8px; display: flex; flex-direction: column; gap: 4px;
+        }
+        body.dark-mode .dropdown-inner { box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5); }
+        .dropdown:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+        .dropdown-item {
+            display: block; padding: 12px 16px; border-radius: 6px; color: var(--text-main);
+            text-decoration: none; font-size: 12px; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.5px; transition: all 0.2s; text-align: left; white-space: nowrap;
+        }
+        .dropdown-item:hover {
+            background: var(--menu-hover-bg); color: var(--accent-color); padding-left: 24px;
+        }
+        [dir="rtl"] .dropdown-item:hover { padding-left: 16px; padding-right: 24px; }
+
+        /* PILL TOGGLE */
+        .theme-toggle-pill {
+            width: 52px; height: 28px; background: var(--bg-secondary); border-radius: 30px;
+            position: relative; cursor: pointer; display: flex; align-items: center;
+            justify-content: space-between; padding: 0 6px; border: 1px solid var(--border-color);
+        }
+        body.dark-mode .theme-toggle-pill { border-color: var(--border-color); }
+        .theme-toggle-pill i { font-size: 10px; z-index: 1; }
+        .theme-toggle-pill .fa-sun { color: #f59e0b; }
+        .theme-toggle-pill .fa-moon { color: #999; }
+        .theme-toggle-pill .thumb {
+            position: absolute; top: 1px; left: 2px; width: 24px; height: 24px;
+            background: white; border-radius: 50%; transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); z-index: 2; border: 1px solid var(--border-color);
+        }
+        body.dark-mode .theme-toggle-pill .thumb {
+            transform: translateX(22px); background: #333; border-color: var(--border-color);
+        }
+
+        /* RTL BUTTON STYLE */
+        .rtl-btn-style {
+            width: 44px; height: 28px; background: var(--bg-secondary); border-radius: 6px;
+            border: 1px solid var(--border-color); display: flex; align-items: center;
+            justify-content: center; font-size: 10px; font-weight: 800; cursor: pointer;
+            color: var(--text-main); transition: all 0.3s ease;
+        }
+        body.dark-mode .rtl-btn-style { border-color: var(--border-color); }
+        .rtl-btn-style:hover { background: var(--accent-color); color: #fff; border-color: var(--accent-color); }
+
+        /* === BUTTON DESIGN === */
+        .btn {
+            padding: 12px 28px; font-weight: 600; font-size: 12px; text-transform: uppercase;
+            letter-spacing: 1px; transition: all 0.3s ease; display: inline-flex;
+            align-items: center; justify-content: center; cursor: pointer; position: relative;
+            border: 1px solid transparent; border-radius: 6px;
+        }
+        .btn-solid { background: var(--accent-color); color: #FFFFFF !important; }
+        .btn-solid:hover {
+            background: var(--accent-dark); transform: translateY(-2px);
+            box-shadow: 0 8px 15px -3px rgba(14, 165, 233, 0.3);
+        }
+        .btn-outline { background: transparent; border: 1px solid var(--border-color); color: var(--text-main); }
+        .btn-outline:hover {
+            border-color: var(--accent-color); color: var(--accent-color) !important; transform: translateY(-2px);
+        }
+
+        /* MOBILE OVERLAY & HAMBURGER */
+        .drawer-overlay {
+            position: fixed; inset: 0; background: rgba(0, 0, 0, 0.6); z-index: 999;
+            opacity: 0; visibility: hidden; transition: all 0.3s ease; backdrop-filter: blur(4px);
+        }
+        .drawer-overlay.active { opacity: 1; visibility: visible; }
+        .fullscreen-menu {
+            position: fixed; top: 0; right: 0; width: 100%; max-width: 400px; height: 100dvh;
+            background: var(--drawer-bg); z-index: 1001; display: flex; flex-direction: column;
+            opacity: 0; visibility: hidden; transform: translateX(100%);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); border-left: 1px solid var(--border-color);
+        }
+        [dir="rtl"] .fullscreen-menu {
+            right: auto; left: 0; transform: translateX(-100%); border-left: none; border-right: 1px solid var(--border-color);
+        }
+        .fullscreen-menu.active { opacity: 1; visibility: visible; transform: translateX(0); }
+        .mobile-link {
+            display: block; width: 100%; padding: 16px 32px; font-size: 1.1rem;
+            font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+            color: var(--text-main); text-decoration: none; transition: all 0.3s;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .mobile-link:hover { color: var(--accent-color); padding-left: 40px; background: var(--menu-hover-bg); }
+        [dir="rtl"] .mobile-link:hover { padding-left: 32px; padding-right: 40px; }
+
+        /* FOOTER */
+        footer { background: var(--bg-secondary); border-top: 1px solid var(--border-color); padding-top: 80px; }
+        body.dark-mode footer { border-color: var(--border-color); }
+        footer h4 { color: var(--text-main); font-weight: 600; font-size: 1.1rem; margin-bottom: 24px; text-transform: uppercase; letter-spacing: 1px; }
+        footer a, footer li, footer span { color: var(--text-muted); text-decoration: none; transition: all 0.3s; font-size: 0.95rem; font-weight: 400; }
+        footer a:hover { color: var(--accent-color); }
+        .social-link-circle {
+            width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--border-color);
+            display: flex; align-items: center; justify-content: center; transition: all 0.3s;
+            color: var(--text-main); background: transparent;
+        }
+        .social-link-circle:hover { background: var(--accent-color); border-color: var(--accent-color); color: #FFFFFF; transform: translateY(-3px); }
+        .footer-bottom { border-top: 1px solid var(--border-color); padding: 32px 0; margin-top: 60px; }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR PART -->
+    <nav class="navbar" id="main-nav">
+        <div class="w-full max-w-[1440px] mx-auto px-6 lg:px-12 flex items-center justify-between">
+            <div class="flex items-center flex-shrink-0">
+                <a href="index.html" class="inline-flex items-center gap-3 text-2xl font-bold tracking-widest uppercase"
+                    style="color: var(--text-main) !important; text-decoration: none;">
+                    <i class="fas fa-book-open" style="color: var(--accent-color); font-size: 1.4rem;"></i>
+                    LibroSpace
+                </a>
+            </div>
+
+            <div class="hidden lg:flex justify-center items-center flex-1 ml-4">
+                <div class="dropdown">
+                    <div class="nav-link active">Home <i class="fas fa-chevron-down text-[10px] ml-1 opacity-50"></i></div>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-inner">
+                            <a href="index.html" class="dropdown-item">Home Page 1</a>
+                            <!-- Updated Active State in Dropdown for Home 2 -->
+                            <a href="home-2.html" class="dropdown-item" style="color: var(--accent-color); background: var(--menu-hover-bg); padding-left: 24px;">Home Page 2</a>
+                        </div>
+                    </div>
+                </div>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="pricing.html" class="nav-link">Pricing</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="faq.html" class="nav-link">FAQ</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <div class="dropdown">
+                    <div class="nav-link">Dashboard <i class="fas fa-chevron-down text-[10px] ml-1 opacity-50"></i></div>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-inner">
+                            <a href="user.html" class="dropdown-item">User Dashboard</a>
+                            <a href="admin.html" class="dropdown-item">Admin Dashboard</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hidden xl:flex items-center gap-3 shrink-0">
+                <div id="theme-toggle-desktop" class="theme-toggle-pill" title="Toggle Dark Mode">
+                    <i class="fas fa-sun"></i><i class="fas fa-moon"></i>
+                    <div class="thumb"></div>
+                </div>
+                <button id="rtl-btn" class="rtl-btn-style" title="Toggle LTR/RTL">LTR</button>
+                <div class="w-px h-6 bg-[var(--border-color)] mx-2"></div>
+                <a href="login.html" class="btn btn-outline hover:!bg-[var(--accent-color)] hover:!text-white hover:!border-[var(--accent-color)] !w-[90px] !h-[36px] !p-0 !text-[11px]">Login</a>
+                <a href="register.html" class="btn btn-solid !w-[90px] !h-[36px] !p-0 !text-[11px]">Register</a>
+            </div>
+
+            <div class="lg:hidden flex items-center justify-end gap-4 shrink-0">
+                <button id="mobile-btn" class="w-10 h-10 rounded-md flex items-center justify-center bg-[var(--bg-secondary)] border border-[var(--border-color)] text-xl text-[var(--text-main)] transition-colors hover:bg-[var(--accent-color)] hover:text-white hover:border-[var(--accent-color)]">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HAMBURGER MENU PART -->
+    <div class="drawer-overlay" id="drawer-overlay"></div>
+    <div class="fullscreen-menu" id="fullscreen-menu">
+        <div class="w-full px-8 py-6 flex justify-between items-center shrink-0 border-b border-[var(--border-color)]">
+            <a href="index.html" class="inline-flex items-center gap-3 text-2xl font-bold tracking-widest uppercase"
+                style="color: var(--text-main) !important; text-decoration: none;">
+                <i class="fas fa-book-open" style="color: var(--accent-color); font-size: 1.4rem;"></i>
+                LibroSpace
+            </a>
+            <button id="close-menu"
+                class="w-10 h-10 rounded-full flex items-center justify-center transition-all text-xl text-[var(--text-main)] hover:bg-[var(--bg-secondary)] hover:text-[var(--accent-color)]">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="flex flex-col w-full overflow-y-auto flex-1 py-4">
+            <a href="index.html" class="mobile-link">Home Page 1</a>
+            <!-- Updated Active State for Home 2 -->
+            <a href="home-2.html" class="mobile-link" style="color: var(--accent-color);">Home Page 2</a>
+            <a href="about.html" class="mobile-link">About</a>
+            <a href="services.html" class="mobile-link">Services</a>
+            <a href="pricing.html" class="mobile-link">Pricing</a>
+            <a href="blog.html" class="mobile-link">Blog</a>
+            <a href="faq.html" class="mobile-link">FAQ</a>
+            <a href="contact.html" class="mobile-link">Contact</a>
+            <div class="px-8 mt-6 mb-2">
+                <span class="text-[10px] font-semibold text-[var(--text-muted)] uppercase tracking-widest">Portals</span>
+            </div>
+            <a href="user.html" class="mobile-link !text-sm text-[var(--text-muted)]">User Dashboard</a>
+            <a href="admin.html" class="mobile-link !text-sm text-[var(--text-muted)]">Admin Dashboard</a>
+        </div>
+        
+        <div class="w-full px-8 py-8 border-t border-[var(--border-color)] flex flex-col gap-6 shrink-0 bg-[var(--bg-secondary)]">
+            <div class="flex justify-between items-center w-full">
+                <div class="flex items-center gap-3">
+                    <span class="text-[var(--text-muted)] font-medium text-[10px] uppercase tracking-widest">Theme</span>
+                    <div id="theme-toggle-mobile" class="theme-toggle-pill"><i class="fas fa-sun"></i><i class="fas fa-moon"></i>
+                        <div class="thumb"></div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="text-[var(--text-muted)] font-medium text-[10px] uppercase tracking-widest">Dir</span>
+                    <button id="rtl-toggle-mobile" class="rtl-btn-style">LTR</button>
+                </div>
+            </div>
+            <div class="flex gap-4 w-full">
+                <a href="login.html" class="btn btn-outline flex-1 !py-3">Login</a>
+                <a href="register.html" class="btn btn-solid flex-1 !py-3">Register</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- HERO BANNER PART (Search & Explore) -->
+    <section class="relative w-full min-h-[90dvh] flex items-center justify-center overflow-hidden bg-[var(--bg-color)] pt-20 border-b border-[var(--border-color)]">
+        
+        <div class="max-w-[1000px] mx-auto px-6 w-full relative z-10 text-center flex flex-col items-center mt-10">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--bg-secondary)] border border-[var(--border-color)] text-[var(--text-main)] text-xs font-bold uppercase tracking-widest mb-8">
+                <i class="fas fa-search text-[var(--accent-color)]"></i> Global Catalog Search
+            </div>
+            
+            <h1 class="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.1] mb-6 text-[var(--text-main)] tracking-tight">
+                Discover the world's <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-[var(--accent-color)] to-purple-500">best literature.</span>
+            </h1>
+            
+            <p class="text-[var(--text-muted)] text-lg md:text-xl font-medium mb-12 max-w-2xl">
+                Search millions of physical books, rare manuscripts, and digital editions available at our libraries worldwide.
+            </p>
+
+            <!-- Huge Search Bar -->
+            <form class="w-full max-w-3xl relative flex items-center mb-8">
+                <div class="absolute left-6 text-[var(--text-muted)] text-xl"><i class="fas fa-search"></i></div>
+                <input type="text" placeholder="Search by title, author, ISBN, or keyword..." class="w-full bg-[var(--bg-card)] border-2 border-[var(--border-color)] text-[var(--text-main)] placeholder-[var(--text-muted)] rounded-full py-5 pl-16 pr-40 text-lg focus:outline-none focus:border-[var(--accent-color)] transition-all shadow-lg">
+                <button type="submit" class="absolute right-2 btn btn-solid !rounded-full !py-3 !px-8 text-sm !h-auto">Search</button>
+            </form>
+
+            <div class="flex flex-wrap justify-center items-center gap-3 text-sm font-medium text-[var(--text-muted)]">
+                <span>Trending:</span>
+                <a href="#" class="px-3 py-1 rounded-full border border-[var(--border-color)] hover:border-[var(--accent-color)] hover:text-[var(--accent-color)] hover:bg-[var(--bg-secondary)] transition-colors">Dune</a>
+                <a href="#" class="px-3 py-1 rounded-full border border-[var(--border-color)] hover:border-[var(--accent-color)] hover:text-[var(--accent-color)] hover:bg-[var(--bg-secondary)] transition-colors">Stephen King</a>
+                <a href="#" class="px-3 py-1 rounded-full border border-[var(--border-color)] hover:border-[var(--accent-color)] hover:text-[var(--accent-color)] hover:bg-[var(--bg-secondary)] transition-colors">Historical Fiction</a>
+                <a href="#" class="px-3 py-1 rounded-full border border-[var(--border-color)] hover:border-[var(--accent-color)] hover:text-[var(--accent-color)] hover:bg-[var(--bg-secondary)] transition-colors">1984</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN HOMEPAGE SECTIONS (Home 2 Specific) -->
+    <main class="w-full bg-[var(--bg-color)]">
+
+        <!-- SECTION 1: Browse by Format -->
+        <section class="py-24 bg-[var(--bg-color)] border-b border-[var(--border-color)]">
+            <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+                <div class="text-center mb-16 max-w-2xl mx-auto">
+                    <span class="text-[var(--accent-color)] text-sm font-bold uppercase tracking-widest block mb-3">Any Way You Read</span>
+                    <h2 class="text-4xl md:text-5xl font-black text-[var(--text-main)] tracking-tight">Browse By Format</h2>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <a href="#" class="bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-[24px] p-8 hover:bg-[var(--accent-color)] group transition-all duration-300 shadow-sm hover:shadow-xl hover:-translate-y-2">
+                        <div class="w-16 h-16 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-color)] flex items-center justify-center text-[var(--accent-color)] text-3xl mb-6 shadow-sm group-hover:text-white group-hover:bg-white/20 transition-colors">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-[var(--text-main)] group-hover:text-white mb-2 transition-colors">Physical Books</h3>
+                        <p class="text-[var(--text-muted)] group-hover:text-white/80 font-medium text-sm transition-colors">Hardcovers & Paperbacks</p>
+                    </a>
+                    <a href="#" class="bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-[24px] p-8 hover:bg-[var(--accent-color)] group transition-all duration-300 shadow-sm hover:shadow-xl hover:-translate-y-2">
+                        <div class="w-16 h-16 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-color)] flex items-center justify-center text-[var(--accent-color)] text-3xl mb-6 shadow-sm group-hover:text-white group-hover:bg-white/20 transition-colors">
+                            <i class="fas fa-headphones-alt"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-[var(--text-main)] group-hover:text-white mb-2 transition-colors">Audiobooks</h3>
+                        <p class="text-[var(--text-muted)] group-hover:text-white/80 font-medium text-sm transition-colors">Listen on the go</p>
+                    </a>
+                    <a href="#" class="bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-[24px] p-8 hover:bg-[var(--accent-color)] group transition-all duration-300 shadow-sm hover:shadow-xl hover:-translate-y-2">
+                        <div class="w-16 h-16 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-color)] flex items-center justify-center text-[var(--accent-color)] text-3xl mb-6 shadow-sm group-hover:text-white group-hover:bg-white/20 transition-colors">
+                            <i class="fas fa-tablet-alt"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-[var(--text-main)] group-hover:text-white mb-2 transition-colors">E-Books</h3>
+                        <p class="text-[var(--text-muted)] group-hover:text-white/80 font-medium text-sm transition-colors">Digital reading</p>
+                    </a>
+                    <a href="#" class="bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-[24px] p-8 hover:bg-[var(--accent-color)] group transition-all duration-300 shadow-sm hover:shadow-xl hover:-translate-y-2">
+                        <div class="w-16 h-16 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-color)] flex items-center justify-center text-[var(--accent-color)] text-3xl mb-6 shadow-sm group-hover:text-white group-hover:bg-white/20 transition-colors">
+                            <i class="fas fa-newspaper"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-[var(--text-main)] group-hover:text-white mb-2 transition-colors">Magazines</h3>
+                        <p class="text-[var(--text-muted)] group-hover:text-white/80 font-medium text-sm transition-colors">Weekly & Monthly issues</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: Upcoming Author Events -->
+        <section class="py-24 bg-[var(--bg-secondary)] border-b border-[var(--border-color)]">
+            <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                    <div>
+                        <span class="text-[var(--accent-color)] text-sm font-bold uppercase tracking-widest block mb-3">Community Gatherings</span>
+                        <h2 class="text-4xl md:text-5xl font-black text-[var(--text-main)] tracking-tight">Upcoming Events</h2>
+                    </div>
+                    <a href="#" class="btn btn-outline bg-[var(--bg-card)] shrink-0">View Event Calendar</a>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Event 1 -->
+                    <div class="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-[32px] overflow-hidden flex flex-col sm:flex-row shadow-sm hover:shadow-xl transition-shadow group">
+                        <div class="w-full sm:w-[240px] h-[240px] sm:h-auto shrink-0 relative overflow-hidden">
+                            <img src="images/pexels-zeynep-264150158-38456871.jpg" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                            <div class="absolute top-4 left-4 bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl px-4 py-2 text-center shadow-md">
+                                <span class="block text-[var(--accent-color)] font-black text-xl leading-none mb-1">14</span>
+                                <span class="block text-[var(--text-muted)] text-[10px] uppercase font-bold tracking-widest">OCT</span>
+                            </div>
+                        </div>
+                        <div class="p-8 flex flex-col justify-center w-full">
+                            <div class="flex items-center gap-2 text-[var(--accent-color)] text-xs font-bold uppercase tracking-widest mb-3">
+                                <i class="fas fa-microphone-alt"></i> Author Talk
+                            </div>
+                            <h3 class="text-2xl font-bold text-[var(--text-main)] mb-3 leading-tight">An Evening with Sarah Jenkins</h3>
+                            <p class="text-[var(--text-muted)] text-sm font-medium mb-6">Join us for a discussion on her latest bestseller "Whispers of Time", followed by a Q&A and book signing.</p>
+                            <div class="mt-auto flex items-center justify-between border-t border-[var(--border-color)] pt-4">
+                                <span class="text-sm font-semibold text-[var(--text-main)]"><i class="far fa-clock text-[var(--text-muted)] mr-1"></i> 6:00 PM - 8:00 PM</span>
+                                <a href="#" class="text-[var(--accent-color)] font-bold text-sm hover:underline">RSVP Now <i class="fas fa-arrow-right ml-1"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Event 2 -->
+                    <div class="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-[32px] overflow-hidden flex flex-col sm:flex-row shadow-sm hover:shadow-xl transition-shadow group">
+                        <div class="w-full sm:w-[240px] h-[240px] sm:h-auto shrink-0 relative overflow-hidden">
+                            <img src="images/pexels-julie-carver-72938236-8473699.jpg" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                            <div class="absolute top-4 left-4 bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl px-4 py-2 text-center shadow-md">
+                                <span class="block text-[var(--accent-color)] font-black text-xl leading-none mb-1">22</span>
+                                <span class="block text-[var(--text-muted)] text-[10px] uppercase font-bold tracking-widest">OCT</span>
+                            </div>
+                        </div>
+                        <div class="p-8 flex flex-col justify-center w-full">
+                            <div class="flex items-center gap-2 text-[var(--accent-color)] text-xs font-bold uppercase tracking-widest mb-3">
+                                <i class="fas fa-users"></i> Book Club
+                            </div>
+                            <h3 class="text-2xl font-bold text-[var(--text-main)] mb-3 leading-tight">Sci-Fi Enthusiasts Monthly Meet</h3>
+                            <p class="text-[var(--text-muted)] text-sm font-medium mb-6">This month we're diving deep into the Dune universe. Coffee and light snacks will be provided.</p>
+                            <div class="mt-auto flex items-center justify-between border-t border-[var(--border-color)] pt-4">
+                                <span class="text-sm font-semibold text-[var(--text-main)]"><i class="far fa-clock text-[var(--text-muted)] mr-1"></i> 4:00 PM - 6:00 PM</span>
+                                <a href="#" class="text-[var(--accent-color)] font-bold text-sm hover:underline">RSVP Now <i class="fas fa-arrow-right ml-1"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: Community Reading Challenge -->
+        <section class="py-24 bg-[var(--bg-color)] border-b border-[var(--border-color)] overflow-hidden relative">
+            <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-[var(--accent-color)] opacity-[0.03] rounded-full blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/2"></div>
+            
+            <div class="max-w-[1440px] mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="order-2 lg:order-1 relative">
+                    <div class="bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-[40px] p-10 relative z-10 shadow-lg">
+                        <h4 class="text-2xl font-black text-[var(--text-main)] mb-2">Winter Reading Challenge</h4>
+                        <p class="text-[var(--text-muted)] font-medium text-sm mb-8">Read 10 books before December 31st to win a limited edition tote bag and exclusive badges.</p>
+                        
+                        <div class="mb-6">
+                            <div class="flex justify-between items-end mb-2">
+                                <span class="text-[var(--text-main)] font-bold text-sm">Community Progress</span>
+                                <span class="text-[var(--accent-color)] font-black text-xl">45%</span>
+                            </div>
+                            <div class="w-full bg-[var(--border-color)] rounded-full h-4 overflow-hidden">
+                                <div class="bg-gradient-to-r from-[var(--accent-color)] to-purple-500 h-4 rounded-full" style="width: 45%;"></div>
+                            </div>
+                            <p class="text-right text-[10px] text-[var(--text-muted)] font-bold uppercase tracking-widest mt-2">1,245 Books Read So Far</p>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row gap-4 mt-10">
+                            <a href="user.html" class="btn btn-solid !py-4 flex-1 shadow-lg shadow-sky-500/30 text-center">Join Challenge</a>
+                            <a href="#" class="btn btn-outline bg-[var(--bg-card)] !py-4 flex-1 text-center">View Leaderboard</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Floating Badges -->
+                    <div class="absolute -top-6 -right-6 bg-yellow-400 text-yellow-900 w-20 h-20 rounded-full flex items-center justify-center flex-col shadow-xl z-20 transform rotate-12 border-4 border-[var(--bg-color)]">
+                        <i class="fas fa-award text-2xl mb-1"></i>
+                        <span class="text-[9px] font-black uppercase tracking-wider leading-none">Prize</span>
+                    </div>
+                </div>
+                
+                <div class="order-1 lg:order-2 flex flex-col items-start text-left">
+                    <span class="text-[var(--accent-color)] text-sm font-bold uppercase tracking-widest block mb-4 flex items-center gap-2"><i class="fas fa-trophy"></i> Gamify Your Reading</span>
+                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-black text-[var(--text-main)] mb-6 leading-[1.1] tracking-tight">Read. Earn. <br>Celebrate.</h2>
+                    <p class="text-[var(--text-muted)] text-lg mb-8 leading-relaxed font-medium">Reading is better together. Join our seasonal reading challenges, track your progress, earn digital badges, and win real-world prizes. Challenge yourself and see how you rank among your peers.</p>
+                    
+                    <div class="flex items-center gap-8 border-l-4 border-[var(--accent-color)] pl-6">
+                        <div>
+                            <h4 class="text-3xl font-black text-[var(--text-main)] mb-1">5K+</h4>
+                            <p class="text-[10px] text-[var(--text-muted)] uppercase tracking-[0.2em] font-bold">Active Participants</p>
+                        </div>
+                        <div>
+                            <h4 class="text-3xl font-black text-[var(--text-main)] mb-1">20+</h4>
+                            <p class="text-[10px] text-[var(--text-muted)] uppercase tracking-[0.2em] font-bold">Unique Rewards</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: Top Rated Collections (Slider-like grid) -->
+        <section class="py-24 bg-[var(--bg-secondary)] border-b border-[var(--border-color)]">
+            <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+                <div class="text-center mb-16 max-w-2xl mx-auto">
+                    <span class="text-[var(--accent-color)] text-sm font-bold uppercase tracking-widest block mb-3">Curated By Experts</span>
+                    <h2 class="text-4xl md:text-5xl font-black text-[var(--text-main)] tracking-tight">Top Rated Collections</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Bundle 1 -->
+                    <div class="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-[32px] p-6 shadow-sm hover:shadow-xl transition-all group">
+                        <div class="flex items-end justify-center h-[200px] mb-8 relative">
+                            <img src="images/pexels-theo-30488467.jpg" class="w-28 h-40 object-cover rounded-lg shadow-lg absolute -rotate-12 -translate-x-12 z-10 group-hover:-rotate-[15deg] group-hover:-translate-x-16 transition-all duration-500">
+                            <img src="images/pexels-feyzagon-13103829.jpg" class="w-32 h-48 object-cover rounded-lg shadow-xl z-20 group-hover:-translate-y-4 transition-all duration-500">
+                            <img src="images/pexels-hson-27854743.jpg" class="w-28 h-40 object-cover rounded-lg shadow-lg absolute rotate-12 translate-x-12 z-10 group-hover:rotate-[15deg] group-hover:translate-x-16 transition-all duration-500">
+                        </div>
+                        <div class="text-center">
+                            <h3 class="text-xl font-bold text-[var(--text-main)] mb-2">The Mystery Starter Pack</h3>
+                            <p class="text-[var(--text-muted)] text-sm font-medium mb-6">3 gripping thrillers to keep you awake all night. Perfect for fans of suspense.</p>
+                            <a href="#" class="btn btn-outline w-full hover:bg-[var(--accent-color)] hover:text-white">Borrow Bundle</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Bundle 2 -->
+                    <div class="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-[32px] p-6 shadow-sm hover:shadow-xl transition-all group">
+                        <div class="flex items-end justify-center h-[200px] mb-8 relative">
+                            <img src="images/pexels-furkanfdemir-6309864.jpg" class="w-28 h-40 object-cover rounded-lg shadow-lg absolute -rotate-12 -translate-x-12 z-10 group-hover:-rotate-[15deg] group-hover:-translate-x-16 transition-all duration-500">
+                            <img src="images/pexels-esra-afsar-123882149-33669197.jpg" class="w-32 h-48 object-cover rounded-lg shadow-xl z-20 group-hover:-translate-y-4 transition-all duration-500">
+                            <img src="images/pexels-hson-27854756.jpg" class="w-28 h-40 object-cover rounded-lg shadow-lg absolute rotate-12 translate-x-12 z-10 group-hover:rotate-[15deg] group-hover:translate-x-16 transition-all duration-500">
+                        </div>
+                        <div class="text-center">
+                            <h3 class="text-xl font-bold text-[var(--text-main)] mb-2">Modern Philosophy</h3>
+                            <p class="text-[var(--text-muted)] text-sm font-medium mb-6">Dive deep into contemporary thoughts with these 3 essential non-fiction reads.</p>
+                            <a href="#" class="btn btn-outline w-full hover:bg-[var(--accent-color)] hover:text-white">Borrow Bundle</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Bundle 3 -->
+                    <div class="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-[32px] p-6 shadow-sm hover:shadow-xl transition-all group hidden lg:block">
+                        <div class="flex items-end justify-center h-[200px] mb-8 relative">
+                            <img src="images/pexels-zeynep-merve-kilic-cakir-76946886-37806164.jpg" class="w-28 h-40 object-cover rounded-lg shadow-lg absolute -rotate-12 -translate-x-12 z-10 group-hover:-rotate-[15deg] group-hover:-translate-x-16 transition-all duration-500">
+                            <img src="images/pexels-tkirkgoz-36933878.jpg" class="w-32 h-48 object-cover rounded-lg shadow-xl z-20 group-hover:-translate-y-4 transition-all duration-500">
+                            <img src="images/pexels-ebahir-34287324.jpg" class="w-28 h-40 object-cover rounded-lg shadow-lg absolute rotate-12 translate-x-12 z-10 group-hover:rotate-[15deg] group-hover:translate-x-16 transition-all duration-500">
+                        </div>
+                        <div class="text-center">
+                            <h3 class="text-xl font-bold text-[var(--text-main)] mb-2">Mindful Mornings</h3>
+                            <p class="text-[var(--text-muted)] text-sm font-medium mb-6">A collection of essays and guides to start your day with intention and peace.</p>
+                            <a href="#" class="btn btn-outline w-full hover:bg-[var(--accent-color)] hover:text-white">Borrow Bundle</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- SECTION 5: Download Our App -->
+        <section class="py-24 bg-[var(--bg-color)] overflow-hidden border-b border-[var(--border-color)]">
+            <div class="max-w-[1440px] mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="flex flex-col items-start text-left order-2 lg:order-1">
+                    <span class="text-[var(--accent-color)] text-sm font-bold uppercase tracking-widest block mb-4 flex items-center gap-2"><i class="fas fa-mobile-alt"></i> Reading On The Go</span>
+                    <h2 class="text-4xl md:text-5xl lg:text-6xl font-black text-[var(--text-main)] mb-6 leading-[1.1] tracking-tight">The Entire Library <br>In Your Pocket.</h2>
+                    <p class="text-[var(--text-muted)] text-lg mb-8 leading-relaxed font-medium">Download the LibroSpace app to reserve physical books, read e-books, listen to audiobooks, and track your reading goals all from one beautifully designed interface.</p>
+                    
+                    <ul class="space-y-4 mb-10">
+                        <li class="flex items-center gap-4 text-[var(--text-main)] font-semibold"><div class="w-8 h-8 rounded-full bg-[var(--accent-color)]/10 text-[var(--accent-color)] flex items-center justify-center shrink-0"><i class="fas fa-check"></i></div> Offline Reading Mode</li>
+                        <li class="flex items-center gap-4 text-[var(--text-main)] font-semibold"><div class="w-8 h-8 rounded-full bg-[var(--accent-color)]/10 text-[var(--accent-color)] flex items-center justify-center shrink-0"><i class="fas fa-check"></i></div> Instant Reservations</li>
+                        <li class="flex items-center gap-4 text-[var(--text-main)] font-semibold"><div class="w-8 h-8 rounded-full bg-[var(--accent-color)]/10 text-[var(--accent-color)] flex items-center justify-center shrink-0"><i class="fas fa-check"></i></div> Sync across all devices</li>
+                    </ul>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#" class="bg-[var(--text-main)] hover:bg-[var(--accent-color)] text-[var(--bg-color)] rounded-xl px-6 py-3 flex items-center gap-4 transition-colors">
+                            <i class="fab fa-apple text-3xl"></i>
+                            <div class="text-left">
+                                <span class="block text-[10px] uppercase font-bold opacity-70">Download on the</span>
+                                <span class="block text-lg font-bold leading-none">App Store</span>
+                            </div>
+                        </a>
+                        <a href="#" class="bg-[var(--text-main)] hover:bg-[var(--accent-color)] text-[var(--bg-color)] rounded-xl px-6 py-3 flex items-center gap-4 transition-colors">
+                            <i class="fab fa-google-play text-2xl"></i>
+                            <div class="text-left">
+                                <span class="block text-[10px] uppercase font-bold opacity-70">GET IT ON</span>
+                                <span class="block text-lg font-bold leading-none">Google Play</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="order-1 lg:order-2 relative h-[500px] lg:h-[650px] flex items-center justify-center">
+                    <!-- Decorative Background -->
+                    <div class="absolute w-[80%] h-[80%] bg-[var(--bg-secondary)] rounded-full z-0"></div>
+                    <div class="absolute w-[90%] h-[90%] border border-[var(--border-color)] rounded-full z-0 opacity-50 animate-[spin_30s_linear_infinite]"></div>
+                    
+                    <!-- App Mockup Concept -->
+                    <div class="relative z-10 w-[280px] lg:w-[320px] h-[550px] lg:h-[620px] bg-[var(--bg-card)] rounded-[45px] shadow-2xl border-[12px] border-[#111] overflow-hidden flex flex-col">
+                        <div class="bg-[var(--accent-color)] h-32 p-6 flex flex-col justify-end text-white relative">
+                            <div class="w-1/2 h-6 bg-[#111] rounded-b-xl absolute top-0 left-1/2 -translate-x-1/2"></div>
+                            <h3 class="font-bold text-xl">Good Morning, Alex</h3>
+                            <p class="text-xs opacity-80">You're 45% through Dune.</p>
+                        </div>
+                        <div class="p-5 flex-1 bg-[var(--bg-secondary)] overflow-hidden relative">
+                            <!-- Mock UI Elements -->
+                            <div class="w-full bg-[var(--bg-card)] rounded-xl p-4 shadow-sm mb-4 border border-[var(--border-color)]">
+                                <div class="flex gap-4">
+                                    <div class="w-12 h-16 bg-[var(--border-color)] rounded overflow-hidden"><img src="images/pexels-theo-30488467.jpg" class="w-full h-full object-cover"></div>
+                                    <div class="flex-1">
+                                        <div class="h-3 w-3/4 bg-[var(--border-color)] rounded mb-2"></div>
+                                        <div class="h-2 w-1/2 bg-[var(--border-color)] rounded mb-4"></div>
+                                        <div class="w-full h-1 bg-[var(--border-color)] rounded-full overflow-hidden"><div class="w-[45%] h-full bg-[var(--accent-color)]"></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h4 class="font-bold text-sm mb-3 text-[var(--text-main)]">Recommended For You</h4>
+                            <div class="flex gap-3 overflow-hidden">
+                                <div class="w-24 shrink-0"><div class="w-full h-32 bg-[var(--border-color)] rounded-lg mb-2 overflow-hidden"><img src="images/pexels-esra-afsar-123882149-33669197.jpg" class="w-full h-full object-cover"></div><div class="h-2 w-full bg-[var(--border-color)] rounded"></div></div>
+                                <div class="w-24 shrink-0"><div class="w-full h-32 bg-[var(--border-color)] rounded-lg mb-2 overflow-hidden"><img src="images/pexels-furkanfdemir-6309864.jpg" class="w-full h-full object-cover"></div><div class="h-2 w-full bg-[var(--border-color)] rounded"></div></div>
+                            </div>
+                        </div>
+                        <div class="h-16 bg-[var(--bg-card)] border-t border-[var(--border-color)] flex justify-around items-center text-[var(--text-muted)]">
+                            <i class="fas fa-home text-[var(--accent-color)]"></i>
+                            <i class="fas fa-search"></i>
+                            <i class="fas fa-book"></i>
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER PART -->
+    <footer>
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-10 pt-4">
+                <div class="lg:col-span-4">
+                    <div class="mb-6">
+                        <a href="index.html" class="inline-flex items-center gap-3 text-2xl font-bold tracking-widest uppercase"
+                            style="color: var(--text-main) !important; text-decoration: none;">
+                            <i class="fas fa-book-open" style="color: var(--accent-color); font-size: 1.4rem;"></i>
+                            LibroSpace
+                        </a>
+                    </div>
+                    <p class="opacity-80 leading-relaxed text-sm font-medium mb-8 max-w-sm" style="color: var(--text-muted);">
+                        Dedicated to providing the ultimate reading experience. Whether you are looking for a permanent addition to your shelf or a weekend escape, we have a book waiting for you.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="social-link-circle"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link-circle"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link-circle"><i class="fab fa-x-twitter"></i></a>
+                        <a href="#" class="social-link-circle"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-8">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
+                        <div>
+                            <h4>Reader Portal</h4>
+                            <ul class="space-y-4">
+                                <li><a href="login.html">Member Login</a></li>
+                                <li><a href="user.html">Reading Dashboard</a></li>
+                                <li><a href="#">My Borrowed Books</a></li>
+                                <li><a href="pricing.html">Lending Plans</a></li>
+                                <li><a href="faq.html">Library FAQ</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Our Catalog</h4>
+                            <ul class="space-y-4">
+                                <li><a href="services.html">New Releases</a></li>
+                                <li><a href="services.html">Fiction & Literature</a></li>
+                                <li><a href="services.html">Non-Fiction & Bio</a></li>
+                                <li><a href="services.html">Children's Books</a></li>
+                                <li><a href="services.html">Rare Collections</a></li>
+                            </ul>
+                        </div>
+                        <div class="sm:col-span-2 md:col-span-1">
+                            <h4>Main Library</h4>
+                            <ul class="space-y-4 text-[var(--text-muted)] text-sm font-medium">
+                                <li class="flex items-start gap-4">
+                                    <i class="fas fa-map-marker-alt mt-1 shrink-0" style="color: var(--accent-color);"></i>
+                                    <span>221B Baker Street<br>Literary District, LDN</span>
+                                </li>
+                                <li class="flex items-center gap-4">
+                                    <i class="fas fa-phone shrink-0 transform scale-x-[-1]" style="color: var(--accent-color);"></i>
+                                    <a href="tel:+15550198" class="break-all hover:text-[var(--accent-color)]">+1 (555) 800-READ</a>
+                                </li>
+                                <li class="flex items-center gap-4">
+                                    <i class="fas fa-envelope shrink-0" style="color: var(--accent-color);"></i>
+                                    <a href="contact.html" class="break-all hover:text-[var(--accent-color)]">hello@librospace.com</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom flex flex-col md:flex-row justify-between items-center text-xs gap-6 font-semibold uppercase tracking-widest">
+                <p style="color: var(--text-muted);">&copy; 2026 LibroSpace Library & Shop. All rights reserved.</p>
+                <div class="flex flex-wrap justify-center gap-6 sm:gap-8">
+                    <a href="#">Terms of Lending</a>
+                    <a href="#">Late Fee Policy</a>
+                    <a href="#">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVITY SCRIPT -->
+    <script>
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('main-nav');
+            if (window.scrollY > 20) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        const mobileBtn = document.getElementById('mobile-btn');
+        const fullscreenMenu = document.getElementById('fullscreen-menu');
+        const closeMenu = document.getElementById('close-menu');
+        const drawerOverlay = document.getElementById('drawer-overlay');
+
+        function toggleMenu() {
+            fullscreenMenu.classList.toggle('active');
+            drawerOverlay.classList.toggle('active');
+            document.body.style.overflow = fullscreenMenu.classList.contains('active') ? 'hidden' : 'auto';
+        }
+
+        mobileBtn.onclick = toggleMenu;
+        closeMenu.onclick = toggleMenu;
+        drawerOverlay.onclick = toggleMenu;
+
+        const themeDesktop = document.getElementById('theme-toggle-desktop');
+        const themeMobile = document.getElementById('theme-toggle-mobile');
+        const theme = localStorage.getItem('theme') || 'light';
+
+        function updateThemeUI(isDark) {
+            if (isDark) {
+                document.body.classList.add('dark-mode');
+                if (themeMobile) themeMobile.classList.add('active');
+            } else {
+                document.body.classList.remove('dark-mode');
+                if (themeMobile) themeMobile.classList.remove('active');
+            }
+        }
+
+        updateThemeUI(theme === 'dark');
+
+        function toggleTheme() {
+            const isDark = !document.body.classList.contains('dark-mode');
+            updateThemeUI(isDark);
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+
+        themeDesktop.onclick = toggleTheme;
+        if (themeMobile) themeMobile.onclick = toggleTheme;
+
+        const rtlBtn = document.getElementById('rtl-btn');
+        const rtlMobile = document.getElementById('rtl-toggle-mobile');
+        const dir = localStorage.getItem('dir') || 'ltr';
+
+        function updateRTLUI(currentDir) {
+            const isRTL = currentDir === 'rtl';
+            if (rtlBtn) rtlBtn.innerText = isRTL ? 'RTL' : 'LTR';
+            if (rtlMobile) rtlMobile.innerText = isRTL ? 'RTL' : 'LTR';
+        }
+
+        if (dir === 'rtl') { document.documentElement.dir = 'rtl'; }
+        updateRTLUI(dir);
+
+        function toggleRTL() {
+            const isRTL = document.documentElement.dir === 'rtl';
+            const newDir = isRTL ? 'ltr' : 'rtl';
+            document.documentElement.dir = newDir;
+            localStorage.setItem('dir', newDir);
+            updateRTLUI(newDir);
+        }
+
+        if (rtlBtn) rtlBtn.onclick = toggleRTL;
+        if (rtlMobile) rtlMobile.onclick = toggleRTL;
+    </script>
+</body>
+</html>
