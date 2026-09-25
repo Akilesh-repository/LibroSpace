@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Create Account | LibroSpace</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/jpeg" href="images\images (6).png">
+    <link rel="icon" type="image/png" href="images\images (6).png">
     <script>
         tailwind.config = {
             theme: {
@@ -111,6 +113,7 @@
             inset: 0;
             z-index: 0;
         }
+
         .auth-bg img {
             width: 100%;
             height: 100%;
@@ -118,19 +121,26 @@
             transition: transform 10s ease-out;
             animation: slowZoom 20s infinite alternate;
         }
+
         .auth-bg-overlay {
             position: absolute;
             inset: 0;
             background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(15, 23, 42, 0.4) 100%);
             transition: background 0.4s ease;
         }
+
         body.dark-mode .auth-bg-overlay {
             background: linear-gradient(135deg, rgba(2, 6, 23, 0.95) 0%, rgba(15, 23, 42, 0.8) 100%);
         }
 
         @keyframes slowZoom {
-            from { transform: scale(1); }
-            to { transform: scale(1.05); }
+            from {
+                transform: scale(1);
+            }
+
+            to {
+                transform: scale(1.05);
+            }
         }
 
         /* RTL SUPPORT */
@@ -178,7 +188,7 @@
             width: 40px;
             height: 22px;
             background: var(--toggle-bg);
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 50px;
             position: relative;
             cursor: pointer;
@@ -257,8 +267,15 @@
         }
 
         @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* HEADERS - EXACT LOGO STYLING FROM PREVIOUS PAGES */
@@ -374,8 +391,8 @@
             box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
         }
 
-        .input-field:focus + .input-icon,
-        .input-field:focus ~ .input-icon {
+        .input-field:focus+.input-icon,
+        .input-field:focus~.input-icon {
             color: var(--accent-color);
         }
 
@@ -495,7 +512,10 @@
             box-shadow: var(--btn-shadow-hover);
             transform: translateY(-1px);
         }
-        .auth-btn:active { transform: translateY(0); }
+
+        .auth-btn:active {
+            transform: translateY(0);
+        }
 
         /* DIVIDER */
         .divider {
@@ -516,7 +536,8 @@
 
         .divider span {
             position: relative;
-            background: var(--bg-card); /* Integrates with glass card */
+            background: var(--bg-card);
+            /* Integrates with glass card */
             padding: 0 12px;
             color: var(--text-muted);
             font-size: 0.65rem;
@@ -556,6 +577,7 @@
             color: var(--accent-color);
             background-color: rgba(14, 165, 233, 0.05);
         }
+
         body.dark-mode .social-btn:hover {
             background-color: rgba(56, 189, 248, 0.08);
         }
@@ -584,6 +606,7 @@
         /* RESPONSIVENESS PRESERVED FROM TEMPLATE */
         @media (max-width: 400px),
         (max-height: 700px) {
+
             html,
             body {
                 height: auto !important;
@@ -660,7 +683,7 @@
         <div class="register-card">
 
             <!-- 100% IDENTICAL LOGO SIZING & PLACEMENT -->
-            <div class="auth-logo">
+            <div class="auth-logo flex justify-center mb-4">
                 <a href="index.html" class="inline-flex items-center gap-3 text-2xl font-bold tracking-widest uppercase"
                     style="color: var(--text-main) !important; text-decoration: none;">
                     <i class="fas fa-book-open" style="color: var(--accent-color); font-size: 1.4rem;"></i>
@@ -668,14 +691,14 @@
                 </a>
             </div>
 
-            <div class="auth-header">
+            <div class="auth-header text-center">
                 <h2>Create an Account</h2>
                 <p>Join LibroSpace to borrow, read, and connect.</p>
             </div>
 
             <!-- FORM WITH EXACT TEMPLATE DOM STRUCTURE, NUMBER OF FIELDS, & SIZING -->
             <form id="register-form">
-                
+
                 <div class="form-row">
                     <div class="form-group">
                         <label for="fname">First Name</label>
@@ -720,7 +743,8 @@
                     <label class="custom-checkbox">
                         <input type="checkbox" required>
                         <div class="checkmark"></div>
-                        <span class="ml-2 text-[0.7rem] font-semibold" style="color: var(--text-muted); line-height: 1.2;">I agree to the
+                        <span class="ml-2 text-[0.7rem] font-semibold"
+                            style="color: var(--text-muted); line-height: 1.2;">I agree to the
                             <a href="#" style="color: var(--accent-color); text-decoration: underline;">Terms</a> & <a
                                 href="#"
                                 style="color: var(--accent-color); text-decoration: underline;">Privacy</a></span>

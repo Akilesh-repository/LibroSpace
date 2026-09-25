@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reader Dashboard | LibroSpace</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/jpeg" href="images\images (6).png">
+    <link rel="icon" type="image/png" href="images\images (6).png">
     <script>
         tailwind.config = {
             theme: {
@@ -369,7 +371,7 @@
         }
 
         .badge-info {
-            background: rgba(14, 165, 233, 0.1); 
+            background: rgba(14, 165, 233, 0.1);
             color: #0EA5E9;
             border: 1px solid rgba(14, 165, 233, 0.2);
         }
@@ -429,11 +431,13 @@
         </div>
 
         <nav class="flex-grow">
-            <p class="text-[10px] font-semibold uppercase tracking-widest mb-3 px-4 text-[var(--text-muted)]">My Library</p>
+            <p class="text-[10px] font-semibold uppercase tracking-widest mb-3 px-4 text-[var(--text-muted)]">My Library
+            </p>
             <a class="nav-item active tab-btn" data-target="u-dash"><i class="fas fa-home"></i> Dashboard</a>
             <a class="nav-item tab-btn" data-target="u-orders"><i class="fas fa-book-reader"></i> My Books</a>
             <a class="nav-item tab-btn" data-target="u-pickup"><i class="fas fa-bookmark"></i> Wishlist</a>
-            <a class="nav-item tab-btn" data-target="u-billing"><i class="fas fa-file-invoice-dollar"></i> Membership & Billing</a>
+            <a class="nav-item tab-btn" data-target="u-billing"><i class="fas fa-file-invoice-dollar"></i> Membership &
+                Billing</a>
 
             <p class="text-[10px] font-semibold uppercase tracking-widest mt-8 mb-3 px-4 text-[var(--text-muted)]">
                 Account
@@ -471,7 +475,8 @@
                 <div class="flex justify-between items-end mb-6">
                     <div>
                         <h2 class="text-3xl font-bold text-[var(--text-main)] mb-1">Welcome back, John! 👋</h2>
-                        <p class="text-[var(--text-muted)] font-medium text-sm">Here is your current reading overview.</p>
+                        <p class="text-[var(--text-muted)] font-medium text-sm">Here is your current reading overview.
+                        </p>
                     </div>
                 </div>
 
@@ -479,7 +484,8 @@
                     <div class="dash-card p-5 border-t-4 border-[var(--accent-color)]">
                         <p class="text-[10px] font-semibold uppercase tracking-widest text-[var(--text-muted)] mb-1">
                             Currently Borrowed</p>
-                        <h3 class="text-3xl font-bold text-[var(--text-main)]">2<span class="text-lg text-[var(--text-muted)] font-medium"> / 3</span></h3>
+                        <h3 class="text-3xl font-bold text-[var(--text-main)]">2<span
+                                class="text-lg text-[var(--text-muted)] font-medium"> / 3</span></h3>
                     </div>
                     <div class="dash-card p-5 border-t-4 border-emerald-500">
                         <p class="text-[10px] font-semibold uppercase tracking-widest text-[var(--text-muted)] mb-1">
@@ -491,7 +497,8 @@
                             Reading Goal</p>
                         <h3 class="text-3xl font-bold text-[var(--text-main)]">56%</h3>
                     </div>
-                    <div class="dash-card p-5 border-t-4 border-amber-500 cursor-pointer tab-btn" data-target="u-orders">
+                    <div class="dash-card p-5 border-t-4 border-amber-500 cursor-pointer tab-btn"
+                        data-target="u-orders">
                         <p class="text-[10px] font-semibold uppercase tracking-widest text-amber-500 mb-1">Due Soon
                         </p>
                         <h3 class="text-xl font-bold text-[var(--text-main)] mt-1">1 Book in 3 Days</h3>
@@ -508,12 +515,14 @@
                         <div class="flex flex-col gap-6">
                             <div
                                 class="flex items-center gap-4 bg-[var(--dash-bg)] p-4 rounded-xl border border-[var(--border-color)]">
-                                <div class="w-16 h-20 rounded-lg overflow-hidden shrink-0 shadow-sm border border-[var(--border-color)]">
+                                <div
+                                    class="w-16 h-20 rounded-lg overflow-hidden shrink-0 shadow-sm border border-[var(--border-color)]">
                                     <img src="images/pexels-tkirkgoz-36933878.jpg" class="w-full h-full object-cover">
                                 </div>
                                 <div class="flex-grow">
                                     <div class="flex justify-between mb-1">
-                                        <h4 class="font-semibold text-[var(--text-main)] text-sm">Dune - Frank Herbert</h4>
+                                        <h4 class="font-semibold text-[var(--text-main)] text-sm">Dune - Frank Herbert
+                                        </h4>
                                         <span class="text-xs font-semibold text-[var(--text-muted)]">3 Days Left</span>
                                     </div>
                                     <div class="progress-bar-bg mb-2">
@@ -527,20 +536,25 @@
 
                             <div
                                 class="flex items-center gap-4 bg-[var(--dash-bg)] p-4 rounded-xl border border-[var(--border-color)]">
-                                <div class="w-16 h-20 rounded-lg overflow-hidden shrink-0 shadow-sm border border-[var(--border-color)]">
+                                <div
+                                    class="w-16 h-20 rounded-lg overflow-hidden shrink-0 shadow-sm border border-[var(--border-color)]">
                                     <img src="images/pexels-hson-27854743.jpg" class="w-full h-full object-cover">
                                 </div>
                                 <div class="flex-grow">
                                     <div class="flex justify-between mb-1">
-                                        <h4 class="font-semibold text-[var(--text-main)] text-sm">City of Glass - Paul Auster</h4>
-                                        <span class="text-xs font-semibold text-[var(--accent-color)]">Just Borrowed</span>
+                                        <h4 class="font-semibold text-[var(--text-main)] text-sm">City of Glass - Paul
+                                            Auster</h4>
+                                        <span class="text-xs font-semibold text-[var(--accent-color)]">Just
+                                            Borrowed</span>
                                     </div>
                                     <div class="progress-bar-bg mb-2">
-                                        <div class="progress-bar-fill bg-[var(--accent-color)]" style="width: 5%;"></div>
+                                        <div class="progress-bar-fill bg-[var(--accent-color)]" style="width: 5%;">
+                                        </div>
                                     </div>
                                     <p class="text-xs text-[var(--text-muted)] font-medium">Due Date: Sep 21, 2026</p>
                                 </div>
-                                <button class="btn-outline shrink-0 px-4"><i class="fas fa-undo text-xs mr-1"></i> Return</button>
+                                <button class="btn-outline shrink-0 px-4"><i class="fas fa-undo text-xs mr-1"></i>
+                                    Return</button>
                             </div>
                         </div>
                     </div>
@@ -551,21 +565,26 @@
                             <div class="bg-[var(--dash-bg)] border border-[var(--border-color)] p-4 rounded-xl flex flex-col items-center text-center cursor-pointer hover:border-[var(--accent-color)] transition-colors tab-btn"
                                 data-target="u-pickup">
                                 <i class="fas fa-search text-2xl text-[var(--accent-color)] mb-3"></i>
-                                <span class="text-xs font-semibold text-[var(--text-main)] leading-tight">Browse Catalog</span>
+                                <span class="text-xs font-semibold text-[var(--text-main)] leading-tight">Browse
+                                    Catalog</span>
                             </div>
                             <div class="bg-[var(--dash-bg)] border border-[var(--border-color)] p-4 rounded-xl flex flex-col items-center text-center cursor-pointer hover:border-[var(--accent-color)] transition-colors tab-btn"
                                 data-target="u-pickup">
                                 <i class="fas fa-bookmark text-2xl text-purple-500 mb-3"></i>
-                                <span class="text-xs font-semibold text-[var(--text-main)] leading-tight">My Wishlist</span>
+                                <span class="text-xs font-semibold text-[var(--text-main)] leading-tight">My
+                                    Wishlist</span>
                             </div>
                             <div class="bg-[var(--dash-bg)] border border-[var(--border-color)] p-4 rounded-xl flex flex-col items-center text-center cursor-pointer hover:border-[var(--accent-color)] transition-colors tab-btn"
                                 data-target="u-settings">
                                 <i class="fas fa-truck text-2xl text-emerald-500 mb-3"></i>
-                                <span class="text-xs font-semibold text-[var(--text-main)] leading-tight">Request Delivery</span>
+                                <span class="text-xs font-semibold text-[var(--text-main)] leading-tight">Request
+                                    Delivery</span>
                             </div>
-                            <div class="bg-[var(--dash-bg)] border border-[var(--border-color)] p-4 rounded-xl flex flex-col items-center text-center cursor-pointer hover:border-[var(--accent-color)] transition-colors">
+                            <div
+                                class="bg-[var(--dash-bg)] border border-[var(--border-color)] p-4 rounded-xl flex flex-col items-center text-center cursor-pointer hover:border-[var(--accent-color)] transition-colors">
                                 <i class="fas fa-headset text-2xl text-pink-500 mb-3"></i>
-                                <span class="text-xs font-semibold text-[var(--text-main)] leading-tight">Librarian Chat</span>
+                                <span class="text-xs font-semibold text-[var(--text-main)] leading-tight">Librarian
+                                    Chat</span>
                             </div>
                         </div>
                     </div>
@@ -579,31 +598,42 @@
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-                    <div class="dash-card rounded-2xl overflow-hidden flex flex-col border border-amber-500/50 shadow-md">
-                        <div class="h-40 relative flex items-center justify-center border-b border-[var(--border-color)]">
-                            <img src="images/pexels-tkirkgoz-36933878.jpg" class="w-full h-full object-cover opacity-80">
-                            <span class="absolute top-4 right-4 bg-amber-500 text-white text-[10px] font-bold px-2 py-1 rounded">Due Soon</span>
+                    <div
+                        class="dash-card rounded-2xl overflow-hidden flex flex-col border border-amber-500/50 shadow-md">
+                        <div
+                            class="h-40 relative flex items-center justify-center border-b border-[var(--border-color)]">
+                            <img src="images/pexels-tkirkgoz-36933878.jpg"
+                                class="w-full h-full object-cover opacity-80">
+                            <span
+                                class="absolute top-4 right-4 bg-amber-500 text-white text-[10px] font-bold px-2 py-1 rounded">Due
+                                Soon</span>
                         </div>
                         <div class="p-6 flex flex-col flex-grow">
                             <h3 class="font-bold text-[var(--text-main)] text-lg mb-1">Dune</h3>
                             <p class="text-xs text-[var(--text-muted)] font-semibold mb-4 uppercase">Frank Herbert</p>
-                            <p class="text-sm text-[var(--text-muted)] mb-6">Classic Science Fiction. Borrowed on Aug 27, 2026.</p>
+                            <p class="text-sm text-[var(--text-muted)] mb-6">Classic Science Fiction. Borrowed on Aug
+                                27, 2026.</p>
                             <div class="mt-auto border-t border-[var(--border-color)] pt-4 flex gap-2">
-                                <button class="btn-solid w-full text-xs !bg-amber-500 hover:!bg-amber-600 !shadow-none">Renew</button>
+                                <button
+                                    class="btn-solid w-full text-xs !bg-amber-500 hover:!bg-amber-600 !shadow-none">Renew</button>
                                 <button class="btn-outline w-full text-xs">Return</button>
                             </div>
                         </div>
                     </div>
 
-                    <div class="dash-card rounded-2xl overflow-hidden flex flex-col border border-[var(--accent-color)] shadow-md">
-                        <div class="h-40 relative flex items-center justify-center border-b border-[var(--border-color)]">
+                    <div
+                        class="dash-card rounded-2xl overflow-hidden flex flex-col border border-[var(--accent-color)] shadow-md">
+                        <div
+                            class="h-40 relative flex items-center justify-center border-b border-[var(--border-color)]">
                             <img src="images/pexels-hson-27854743.jpg" class="w-full h-full object-cover opacity-80">
-                            <span class="absolute top-4 right-4 bg-[var(--accent-color)] text-white text-[10px] font-bold px-2 py-1 rounded">Active</span>
+                            <span
+                                class="absolute top-4 right-4 bg-[var(--accent-color)] text-white text-[10px] font-bold px-2 py-1 rounded">Active</span>
                         </div>
                         <div class="p-6 flex flex-col flex-grow">
                             <h3 class="font-bold text-[var(--text-main)] text-lg mb-1">City of Glass</h3>
                             <p class="text-xs text-[var(--text-muted)] font-semibold mb-4 uppercase">Paul Auster</p>
-                            <p class="text-sm text-[var(--text-muted)] mb-6">Mystery/Thriller. Borrowed on Sep 07, 2026.</p>
+                            <p class="text-sm text-[var(--text-muted)] mb-6">Mystery/Thriller. Borrowed on Sep 07, 2026.
+                            </p>
                             <div class="mt-auto border-t border-[var(--border-color)] pt-4 flex gap-2">
                                 <button class="btn-solid w-full text-xs">Read E-Book</button>
                                 <button class="btn-outline w-full text-xs">Return</button>
@@ -611,17 +641,24 @@
                         </div>
                     </div>
 
-                    <div class="dash-card rounded-2xl overflow-hidden flex flex-col opacity-70 hover:opacity-100 transition-opacity">
-                        <div class="h-40 relative flex items-center justify-center border-b border-[var(--border-color)]">
-                            <img src="images/pexels-esra-afsar-123882149-33669197.jpg" class="w-full h-full object-cover opacity-60 grayscale">
-                            <span class="absolute top-4 right-4 bg-emerald-500 text-white text-[10px] font-bold px-2 py-1 rounded">Returned</span>
+                    <div
+                        class="dash-card rounded-2xl overflow-hidden flex flex-col opacity-70 hover:opacity-100 transition-opacity">
+                        <div
+                            class="h-40 relative flex items-center justify-center border-b border-[var(--border-color)]">
+                            <img src="images/pexels-esra-afsar-123882149-33669197.jpg"
+                                class="w-full h-full object-cover opacity-60 grayscale">
+                            <span
+                                class="absolute top-4 right-4 bg-emerald-500 text-white text-[10px] font-bold px-2 py-1 rounded">Returned</span>
                         </div>
                         <div class="p-6 flex flex-col flex-grow">
                             <h3 class="font-bold text-[var(--text-main)] text-lg mb-1">Whispers of Time</h3>
                             <p class="text-xs text-[var(--text-muted)] font-semibold mb-4 uppercase">Sarah Jenkins</p>
-                            <p class="text-sm text-[var(--text-muted)] mb-6">Returned on Aug 15, 2026. Read time: 8 Days.</p>
+                            <p class="text-sm text-[var(--text-muted)] mb-6">Returned on Aug 15, 2026. Read time: 8
+                                Days.</p>
                             <div class="mt-auto border-t border-[var(--border-color)] pt-4 flex gap-2">
-                                <button class="btn-outline w-full text-xs !border-emerald-500 !text-emerald-500 hover:!bg-emerald-500 hover:!text-white">Leave Review</button>
+                                <button
+                                    class="btn-outline w-full text-xs !border-emerald-500 !text-emerald-500 hover:!bg-emerald-500 hover:!text-white">Leave
+                                    Review</button>
                             </div>
                         </div>
                     </div>
@@ -665,7 +702,9 @@
                                 <td><span class="font-semibold text-sm">Thinking, Fast and Slow</span></td>
                                 <td class="text-sm text-[var(--text-muted)] font-medium">Daniel Kahneman</td>
                                 <td class="text-sm font-medium">E-Book</td>
-                                <td><span class="status-badge badge-success border-gray-200 bg-gray-100 text-gray-600">Available Now</span></td>
+                                <td><span
+                                        class="status-badge badge-success border-gray-200 bg-gray-100 text-gray-600">Available
+                                        Now</span></td>
                                 <td><button class="btn-solid text-xs !py-1">Borrow Now</button></td>
                             </tr>
                         </tbody>
@@ -681,17 +720,20 @@
                         Methods</button>
                 </div>
                 <div class="dash-card p-6 overflow-x-auto w-full">
-                    <div class="bg-[var(--dash-bg)] border border-[var(--border-color)] rounded-xl p-5 mb-8 flex justify-between items-center">
+                    <div
+                        class="bg-[var(--dash-bg)] border border-[var(--border-color)] rounded-xl p-5 mb-8 flex justify-between items-center">
                         <div>
                             <h4 class="font-bold text-[var(--text-main)] mb-1">Pro Membership Plan</h4>
-                            <p class="text-xs font-semibold text-[var(--text-muted)]">Next billing cycle: Oct 01, 2026</p>
+                            <p class="text-xs font-semibold text-[var(--text-muted)]">Next billing cycle: Oct 01, 2026
+                            </p>
                         </div>
                         <div class="flex items-center gap-4">
-                            <span class="text-2xl font-black text-[var(--text-main)]">$19.00<span class="text-sm font-bold text-[var(--text-muted)]">/mo</span></span>
+                            <span class="text-2xl font-black text-[var(--text-main)]">$19.00<span
+                                    class="text-sm font-bold text-[var(--text-muted)]">/mo</span></span>
                             <button class="btn-solid text-xs !py-2">Upgrade Plan</button>
                         </div>
                     </div>
-                    
+
                     <h3 class="font-semibold text-[var(--text-main)] mb-4">Billing History</h3>
                     <table class="clean-table min-w-[600px]">
                         <thead>
@@ -711,7 +753,8 @@
                                 <td class="text-sm font-medium">Pro Membership - September</td>
                                 <td class="text-sm font-semibold">$19.00</td>
                                 <td><span class="status-badge badge-success">Paid</span></td>
-                                <td><button class="icon-btn !w-8 !h-8 text-xs"><i class="fas fa-download"></i></button></td>
+                                <td><button class="icon-btn !w-8 !h-8 text-xs"><i class="fas fa-download"></i></button>
+                                </td>
                             </tr>
                             <tr>
                                 <td><span class="font-semibold text-sm">Aug 14, 2026</span></td>
@@ -719,7 +762,8 @@
                                 <td class="text-sm font-medium">Retail Purchase: Coffee Shop</td>
                                 <td class="text-sm font-semibold">$14.50</td>
                                 <td><span class="status-badge badge-success">Paid</span></td>
-                                <td><button class="icon-btn !w-8 !h-8 text-xs"><i class="fas fa-download"></i></button></td>
+                                <td><button class="icon-btn !w-8 !h-8 text-xs"><i class="fas fa-download"></i></button>
+                                </td>
                             </tr>
                             <tr>
                                 <td><span class="font-semibold text-sm">Aug 01, 2026</span></td>
@@ -727,7 +771,8 @@
                                 <td class="text-sm font-medium">Pro Membership - August</td>
                                 <td class="text-sm font-semibold">$19.00</td>
                                 <td><span class="status-badge badge-success">Paid</span></td>
-                                <td><button class="icon-btn !w-8 !h-8 text-xs"><i class="fas fa-download"></i></button></td>
+                                <td><button class="icon-btn !w-8 !h-8 text-xs"><i class="fas fa-download"></i></button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -761,7 +806,8 @@
                                 class="w-full bg-[var(--dash-bg)] border border-[var(--border-color)] rounded-lg px-4 py-3 text-sm text-[var(--text-main)] outline-none focus:border-[var(--accent-color)]">
                         </div>
                         <div class="sm:col-span-2 border-t border-[var(--border-color)] pt-6 mt-2">
-                            <label class="block text-xs font-semibold text-[var(--text-muted)] uppercase mb-2">Primary Shipping
+                            <label class="block text-xs font-semibold text-[var(--text-muted)] uppercase mb-2">Primary
+                                Shipping
                                 Address (For Home Delivery)</label>
                             <input type="text" value="123 Main St, Apt 4B, New York, NY 10001"
                                 class="w-full bg-[var(--dash-bg)] border border-[var(--border-color)] rounded-lg px-4 py-3 text-sm text-[var(--text-main)] outline-none focus:border-[var(--accent-color)] mb-4">
@@ -769,15 +815,18 @@
                                 class="w-full bg-[var(--dash-bg)] border border-[var(--border-color)] rounded-lg px-4 py-3 text-sm text-[var(--text-main)] outline-none focus:border-[var(--accent-color)] resize-none"></textarea>
                         </div>
                         <div class="sm:col-span-2 border-t border-[var(--border-color)] pt-6 mt-2">
-                            <label class="block text-xs font-semibold text-[var(--text-muted)] uppercase mb-4">Preferred Reading Format</label>
+                            <label class="block text-xs font-semibold text-[var(--text-muted)] uppercase mb-4">Preferred
+                                Reading Format</label>
                             <div class="flex gap-4">
                                 <label
                                     class="flex items-center gap-2 text-sm text-[var(--text-main)] font-medium cursor-pointer">
-                                    <input type="radio" name="format" checked class="accent-[var(--accent-color)]"> Physical Books (Hardcover/Paperback)
+                                    <input type="radio" name="format" checked class="accent-[var(--accent-color)]">
+                                    Physical Books (Hardcover/Paperback)
                                 </label>
                                 <label
                                     class="flex items-center gap-2 text-sm text-[var(--text-main)] font-medium cursor-pointer">
-                                    <input type="radio" name="format" class="accent-[var(--accent-color)]"> E-Books (Kindle/EPUB)
+                                    <input type="radio" name="format" class="accent-[var(--accent-color)]"> E-Books
+                                    (Kindle/EPUB)
                                 </label>
                             </div>
                         </div>
