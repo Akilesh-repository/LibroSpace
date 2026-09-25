@@ -719,7 +719,7 @@
         </div>
     </section>
 
-    <main id="plans" class="w-full bg-[var(--bg-color)]">
+    <main id="plans" class="w-full bg-[var(--bg-color)] overflow-hidden">
 
         <!-- SECTION 1: Standard Core Pricing Plans (3 Cards in a line) -->
         <section class="py-24 border-b border-[var(--border-color)]">
@@ -837,6 +837,104 @@
             </div>
         </section>
 
+        <!-- SECTION 1.5: Individual Book Pricing & Bulk Discounts -->
+        <section class="py-24 bg-[var(--bg-color)] border-b border-[var(--border-color)]">
+            <div class="max-w-[1440px] mx-auto px-6 lg:px-12">
+                <div class="text-center mb-16 max-w-2xl mx-auto">
+                    <span class="text-[var(--accent-color)] text-sm font-bold uppercase tracking-widest block mb-3">Retail Pricing</span>
+                    <h2 class="text-4xl md:text-5xl font-black text-[var(--text-main)] tracking-tight mb-4">Buy Books Individually</h2>
+                    <p class="text-[var(--text-muted)] font-medium text-lg">Prefer to own your books? We offer competitive retail pricing with massive discounts for bulk purchases.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                    <!-- Left: Popular Books Grid -->
+                    <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <!-- Book 1 -->
+                        <div class="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-[24px] p-4 flex gap-5 items-center hover:shadow-xl transition-shadow group">
+                            <div class="w-24 h-32 rounded-lg overflow-hidden shrink-0 shadow-md">
+                                <img src="images/pexels-feyzagon-13103829.jpg" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
+                            </div>
+                            <div class="flex-1">
+                                <span class="text-[10px] uppercase font-bold text-[var(--accent-color)] tracking-wider">Bestseller</span>
+                                <h4 class="font-bold text-[var(--text-main)] text-lg mb-1">The Midnight Library</h4>
+                                <p class="text-[var(--text-muted)] text-xs font-medium mb-3">Matt Haig • Hardcover</p>
+                                <div class="flex items-center gap-3">
+                                    <span class="font-black text-[var(--text-main)] text-xl">$24.99</span>
+                                    <span class="text-[10px] text-[var(--text-muted)] line-through">$29.99</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Book 2 -->
+                        <div class="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-[24px] p-4 flex gap-5 items-center hover:shadow-xl transition-shadow group">
+                            <div class="w-24 h-32 rounded-lg overflow-hidden shrink-0 shadow-md">
+                                <img src="images/pexels-ebahir-34287324.jpg" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
+                            </div>
+                            <div class="flex-1">
+                                <span class="text-[10px] uppercase font-bold text-[var(--accent-color)] tracking-wider">Classic</span>
+                                <h4 class="font-bold text-[var(--text-main)] text-lg mb-1">Mockingbird</h4>
+                                <p class="text-[var(--text-muted)] text-xs font-medium mb-3">Harper Lee • Paperback</p>
+                                <div class="flex items-center gap-3">
+                                    <span class="font-black text-[var(--text-main)] text-xl">$14.99</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Book 3 -->
+                        <div class="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-[24px] p-4 flex gap-5 items-center hover:shadow-xl transition-shadow group">
+                            <div class="w-24 h-32 rounded-lg overflow-hidden shrink-0 shadow-md">
+                                <img src="images/pexels-hson-27854743.jpg" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
+                            </div>
+                            <div class="flex-1">
+                                <span class="text-[10px] uppercase font-bold text-[var(--accent-color)] tracking-wider">New Arrival</span>
+                                <h4 class="font-bold text-[var(--text-main)] text-lg mb-1">City of Glass</h4>
+                                <p class="text-[var(--text-muted)] text-xs font-medium mb-3">Elena Woods • 1st Ed.</p>
+                                <div class="flex items-center gap-3">
+                                    <span class="font-black text-[var(--text-main)] text-xl">$19.99</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Book 4 -->
+                        <div class="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-[24px] p-4 flex gap-5 items-center hover:shadow-xl transition-shadow group">
+                            <div class="w-24 h-32 rounded-lg overflow-hidden shrink-0 shadow-md">
+                                <img src="images/pexels-esra-afsar-123882149-18132694.jpg" class="w-full h-full object-cover group-hover:scale-110 transition-transform">
+                            </div>
+                            <div class="flex-1">
+                                <span class="text-[10px] uppercase font-bold text-[var(--accent-color)] tracking-wider">Sci-Fi</span>
+                                <h4 class="font-bold text-[var(--text-main)] text-lg mb-1">Dune</h4>
+                                <p class="text-[var(--text-muted)] text-xs font-medium mb-3">Frank Herbert • Anniv.</p>
+                                <div class="flex items-center gap-3">
+                                    <span class="font-black text-[var(--text-main)] text-xl">$21.50</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Quantity Pricing Box -->
+                    <div class="lg:col-span-4 bg-[var(--bg-secondary)] border border-[var(--accent-color)] rounded-[32px] p-8 shadow-2xl relative overflow-hidden flex flex-col h-full">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-[var(--accent-color)] opacity-10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+                        <h3 class="text-2xl font-black text-[var(--text-main)] mb-2"><i class="fas fa-boxes text-[var(--accent-color)]"></i> Bulk Discounts</h3>
+                        <p class="text-[var(--text-muted)] text-sm font-medium mb-6">Building a personal library or buying for a book club? The more you buy, the more you save.</p>
+                        
+                        <ul class="flex flex-col gap-4 mb-8 flex-1">
+                            <li class="flex justify-between items-center bg-[var(--bg-card)] p-4 rounded-xl border border-[var(--border-color)]">
+                                <span class="font-bold text-[var(--text-main)]">3 - 5 Books</span>
+                                <span class="text-[var(--accent-color)] font-black text-lg">10% OFF</span>
+                            </li>
+                            <li class="flex justify-between items-center bg-[var(--bg-card)] p-4 rounded-xl border border-[var(--border-color)]">
+                                <span class="font-bold text-[var(--text-main)]">6 - 9 Books</span>
+                                <span class="text-[var(--accent-color)] font-black text-lg">15% OFF</span>
+                            </li>
+                            <li class="flex justify-between items-center bg-[var(--bg-card)] p-4 rounded-xl border border-[var(--accent-color)] shadow-sm">
+                                <span class="font-bold text-[var(--text-main)]">10+ Books</span>
+                                <span class="text-[var(--accent-color)] font-black text-lg">25% OFF</span>
+                            </li>
+                        </ul>
+                        
+                        <a href="services.html" class="btn btn-solid w-full !py-4 text-sm text-center">Shop Retail Collection</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- SECTION 2: Separate Sale Section (Annual Sale) -->
         <section class="py-24 bg-[var(--bg-secondary)] border-b border-[var(--border-color)]">
             <div class="max-w-[1440px] mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -850,7 +948,7 @@
                         of reading and lock in our absolute lowest price. Get all the benefits of our Premium tier for a
                         fraction of the cost.</p>
 
-                    <div class="flex items-end gap-3 mb-8">
+                    <div class="flex flex-wrap items-end gap-3 mb-8">
                         <span class="text-2xl text-[var(--text-muted)] line-through font-bold">~~$348.00/yr~~</span>
                         <span class="text-6xl font-black text-[var(--text-main)]">$199<span
                                 class="text-2xl">/yr</span></span>
@@ -894,7 +992,7 @@
                         should always have access to affordable literature. Verify your student status and get our Basic
                         plan heavily discounted.</p>
 
-                    <div class="flex items-end gap-3 mb-8">
+                    <div class="flex flex-wrap items-end gap-3 mb-8">
                         <span class="text-2xl text-[var(--text-muted)] line-through font-bold">~~$9.00/mo~~</span>
                         <span class="text-6xl font-black text-[var(--text-main)]">$4.99<span
                                 class="text-2xl">/mo</span></span>
